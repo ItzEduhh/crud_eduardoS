@@ -1,23 +1,23 @@
-<?php $this->layout('layouts/admin', ['title' => 'Editar Produto']) ?>
+<?php $this->layout('layouts/admin', ['title' => 'Editar Categoria']) ?>
 
 <?php $this->start('body') ?>
 <div class="card shadow-sm" id="formView">
-    <?php $this->insert('partials/admin/form/header', ['title' => 'Editar Produto']) ?>
+    <?php $this->insert('partials/admin/form/header', ['title' => 'Editar Categoria']) ?>
     <div class="card-body">
-        <form method="post" action="/admin/products/update" enctype="multipart/form-data" class="">
+        <form method="post" action="/admin/categories/update" enctype="multipart/form-data" class="">
               <input type="hidden" name="id" value="<?= $this->e($product['id']) ?>">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="name" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome"
-                           value="<?= $this->e(($product['name'] ?? '')) ?>" required>
+                           value="<?= $this->e(($category['name'] ?? '')) ?>" required>
                     <?php if (!empty($errors['name'])): ?>
                         <div class="text-danger"><?= $this->e($errors['name']) ?></div><?php endif; ?>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="price" class="form-label">Preço</label>
+                    <label for="price" class="form-label">Texto</label>
                     <input type="number" step="0.01" class="form-control" id="price" name="price"
-                           placeholder="Digite o preço" value="<?= $this->e(($product['price'] ?? '')) ?>" required>
+                           placeholder="Digite o texto" value="<?= $this->e(($category['price'] ?? '')) ?>" required>
                     <?php if (!empty($errors['price'])): ?>
                         <div class="text-danger"><?= $this->e($errors['price']) ?></div><?php endif; ?>
                 </div>
@@ -25,8 +25,8 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="formFile" class="form-label">Imagem (JPEG, PNG, WEBP) — substituir atual</label>
-                    <?php if (!empty($product['image_path'])): ?>
-                        <img class="d-block img-thumbnail ratio ratio-1x1" style="max-height: 200px;max-width: 200px" src="<?= $this->e($product['image_path']) ?>" alt=""><br>
+                    <?php if (!empty($category['image_path'])): ?>
+                        <img class="d-block img-thumbnail ratio ratio-1x1" style="max-height: 200px;max-width: 200px" src="<?= $this->e($category['image_path']) ?>" alt=""><br>
                     <?php endif; ?>
                     <input class="form-control" type="file" id="image" name="image" accept="image/*">
                     <?php if (!empty($errors['image'])): ?>
@@ -42,7 +42,7 @@
                 <button type="reset" class="btn btn-secondary">
                     <i class="bi bi-x-lg"></i> Limpar
                 </button>
-                <a href="/admin/products" class="btn align-self-end">
+                <a href="/admin/categories" class="btn align-self-end">
                     <i class="bi bi-x-lg"></i> Cancelar
                 </a>
             </div>
@@ -50,7 +50,7 @@
         </form>
     </div>
 </div>
-<!--<form method="post" action="/admin/products/update" enctype="multipart/form-data">-->
+<!--<form method="post" action="/admin/categories/update" enctype="multipart/form-data">-->
 <!--  <input type="hidden" name="id" value="--><?php //= $this->e($product['id']) ?><!--">-->
 <!--  <label>Nome<br>-->
 <!--    <input name="name" value="--><?php //= $this->e($product['name']) ?><!--" required>-->

@@ -33,7 +33,7 @@
 1. Routes (routes.php)
 2. Controller (ProductController > CategoryController)
 3. Migrations (db/migrations)
-4. Repository (ProductRepository > CategoryRepository)
+4. Repository (ProductRepository > CategoryRepository) BANCO DE DADOS
 5. Model (Product > Category)
 6. Service (ProductService > CategoryService)
 7. Views (duplicar - views/admin/products > categories)
