@@ -5,7 +5,7 @@
     <?php $this->insert('partials/admin/form/header', ['title' => 'Editar Categoria']) ?>
     <div class="card-body">
         <form method="post" action="/admin/categories/update" enctype="multipart/form-data" class="">
-              <input type="hidden" name="id" value="<?= $this->e($product['id']) ?>">
+              <input type="hidden" name="id" value="<?= $this->e($category['id']) ?>">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="name" class="form-label">Nome</label>
@@ -15,24 +15,11 @@
                         <div class="text-danger"><?= $this->e($errors['name']) ?></div><?php endif; ?>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="price" class="form-label">Texto</label>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price"
-                           placeholder="Digite o texto" value="<?= $this->e(($category['price'] ?? '')) ?>" required>
-                    <?php if (!empty($errors['price'])): ?>
-                        <div class="text-danger"><?= $this->e($errors['price']) ?></div><?php endif; ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="formFile" class="form-label">Imagem (JPEG, PNG, WEBP) — substituir atual</label>
-                    <?php if (!empty($category['image_path'])): ?>
-                        <img class="d-block img-thumbnail ratio ratio-1x1" style="max-height: 200px;max-width: 200px" src="<?= $this->e($category['image_path']) ?>" alt=""><br>
-                    <?php endif; ?>
-                    <input class="form-control" type="file" id="image" name="image" accept="image/*">
-                    <?php if (!empty($errors['image'])): ?>
-                        <div class="error"><?= $this->e($errors['image']) ?></div><?php endif; ?>
-                </div>
-                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Texto</label>
+                    <input type="text" class="form-control" id="text" name="text" placeholder="Digite o texto"
+                           value="<?= $this->e(($category['text'] ?? '')) ?>" required>
+                    <?php if (!empty($errors['text'])): ?>
+                        <div class="text-danger"><?= $this->e($errors['text']) ?></div><?php endif; ?>
                 </div>
             </div>
             <div class="d-flex gap-3">
@@ -51,20 +38,20 @@
     </div>
 </div>
 <!--<form method="post" action="/admin/categories/update" enctype="multipart/form-data">-->
-<!--  <input type="hidden" name="id" value="--><?php //= $this->e($product['id']) ?><!--">-->
+<!--  <input type="hidden" name="id" value="--><?php //= $this->e($category['id']) ?><!--">-->
 <!--  <label>Nome<br>-->
-<!--    <input name="name" value="--><?php //= $this->e($product['name']) ?><!--" required>-->
+<!--    <input name="name" value="--><?php //= $this->e($category['name']) ?><!--" required>-->
 <!--    --><?php //if (!empty($errors['name'])): ?><!--<div class="error">--><?php //= $this->e($errors['name']) ?><!--</div>--><?php //endif; ?>
 <!--  </label><br><br>-->
 <!---->
 <!--  <label>Preço<br>-->
-<!--    <input name="price" type="number" step="0.01" value="--><?php //= $this->e($product['price']) ?><!--" required>-->
+<!--    <input name="price" type="number" step="0.01" value="--><?php //= $this->e($category['price']) ?><!--" required>-->
 <!--    --><?php //if (!empty($errors['price'])): ?><!--<div class="error">--><?php //= $this->e($errors['price']) ?><!--</div>--><?php //endif; ?>
 <!--  </label><br><br>-->
 <!---->
 <!--  <label>Imagem (substitui a atual) — opcional<br>-->
-<!--    --><?php //if (!empty($product['image_path'])): ?>
-<!--      <img class="thumb" src="--><?php //= $this->e($product['image_path']) ?><!--" alt=""><br>-->
+<!--    --><?php //if (!empty($category['image_path'])): ?>
+<!--      <img class="thumb" src="--><?php //= $this->e($category['image_path']) ?><!--" alt=""><br>-->
 <!--    --><?php //endif; ?>
 <!--    <input type="file" name="image" accept="image/*">-->
 <!--    --><?php //if (!empty($errors['image'])): ?><!--<div class="error">--><?php //= $this->e($errors['image']) ?><!--</div>--><?php //endif; ?>

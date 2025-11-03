@@ -51,7 +51,7 @@ class CategoryController {
         $id = (int)$request->query->get('id', 0);
         $category = $this->repo->find($id);
         if (!$category) return new Response('Category não encontrada', 404);
-        $html = $this->view->render('admin/categories/show', ['cagetory' => $category]);
+        $html = $this->view->render('admin/categories/show', ['category' => $category]);
         return new Response($html);
     }
 

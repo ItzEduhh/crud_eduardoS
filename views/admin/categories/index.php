@@ -24,7 +24,6 @@
                         <td><?= $this->e($category['id']) ?></td>
                         <td><?= $this->e($category['name']) ?></td>
                         <td><?= $this->e($category['text']) ?></td>
-                        <td><?= $this->e($category['created_at'] ?? '') ?></td>
                         <td>
                             <div class="action-buttons">
                                 <a class="btn btn-sm btn-secondary btn-edit"
