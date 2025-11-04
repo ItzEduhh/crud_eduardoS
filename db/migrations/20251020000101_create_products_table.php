@@ -8,7 +8,7 @@ final class CreateProductsTable extends AbstractMigration
     public function change(): void
     {
         $this->table('products')
-            ->addColumn('category_id')
+            ->addColumn('category_id', 'integer', ['signed'])
             ->addColumn('name', 'string', ['limit' => 120])
             ->addColumn('price', 'decimal', ['precision' => 10, 'scale' => 2])
             ->addColumn('image_path', 'string', ['null' => true, 'limit' => 255])
