@@ -30,12 +30,12 @@ Acesse: localhost:8001/auth/create
 
 ------
 
-1. Routes (routes.php)
-2. Controller (ProductController > CategoryController)
-3. Migrations (db/migrations)
-4. Repository (ProductRepository > CategoryRepository)
-5. Model (Product > Category)
-6. Service (ProductService > CategoryService)
-7. Views (duplicar - views/admin/products > categories)
-8. Controller (views)
+1. Routes (routes.php) .
+2. Controller (ProductController > CategoryController) .
+3. Migrations (db/migrations) .
+4. Repository (ProductRepository > CategoryRepository) .
+5. Model (Product > Category) .
+6. Service (ProductService > CategoryService) .
+7. Views (duplicar - views/admin/products > categories) .
+8. Controller (views) .
 9. Views (alterar)

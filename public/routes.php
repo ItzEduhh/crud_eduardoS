@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Admin\AdminController;
+use App\Controllers\Admin\AutorController;
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductController;
 use App\Controllers\Admin\UserController;
@@ -27,6 +28,17 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $rou
         // Home Admin
         $group->addGroup('', function (FastRoute\RouteCollector $admin) {
             $admin->addRoute('GET', '', [AdminController::class, 'index']);
+        });
+
+        // Autores
+        $group->addGroup('/autors', function (FastRoute\RouteCollector $autors) {
+            $autors->addRoute('GET', '', [AutorController::class, 'index']);
+            $autors->addRoute('GET', '/create', [AutorController::class, 'create']);
+            $autors->addRoute('POST', '/store', [AutorController::class, 'store']);
+            $autors->addRoute('GET', '/show', [AutorController::class, 'show']);
+            $autors->addRoute('GET', '/edit', [AutorController::class, 'edit']);
+            $autors->addRoute('POST', '/update', [AutorController::class, 'update']);
+            $autors->addRoute('POST', '/delete', [AutorController::class, 'delete']);
         });
 
         // Produtos
@@ -61,6 +73,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $rou
 //            $users->addRoute('POST', '/update', [UserController::class, 'update']);
             $users->addRoute('POST', '/delete', [UserController::class, 'delete']);
         });
+
     });
 });
 
