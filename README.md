@@ -22,18 +22,18 @@
 
 | Windows: php vendor/bin/phinx migrate
 
-- Executar os seeds
+- Criar primeiro usuário
 
-| Linux: vendor/bin/phinx seed:run
-
-| Windows: php vendor/bin/phinx seed:run
+Acesse: localhost:8001/auth/create
+- E-mail: teste@teste.com
+- Senha: teste123
 
 ------
 
 1. Routes (routes.php)
 2. Controller (ProductController > CategoryController)
 3. Migrations (db/migrations)
-4. Repository (ProductRepository > CategoryRepository) BANCO DE DADOS
+4. Repository (ProductRepository > CategoryRepository)
 5. Model (Product > Category)
 6. Service (ProductService > CategoryService)
 7. Views (duplicar - views/admin/products > categories)

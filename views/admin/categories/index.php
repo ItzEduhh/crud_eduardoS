@@ -16,6 +16,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Texto</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -35,7 +36,7 @@
                                     <i class="bi bi-pencil"></i> Editar
                                 </a>
                                 <form class="inline" action="/admin/categories/delete" method="post"
-                                      onsubmit="return confirm('Tem certeza que deseja excluir esta Categoria? (<?= $this->e($category['name']) ?>)');">
+                                      onsubmit="return confirm('Tem certeza que deseja excluir esta categoria? (<?= $this->e($category['name']) ?>)');">
                                     <input type="hidden" name="id" value="<?= $this->e($category['id']) ?>">
                                     <?= \App\Core\Csrf::input() ?>
                                     <button type="submit" class="btn btn-sm btn-danger">

@@ -18,7 +18,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label"><strong>Texto:</strong></label>
-                    <input type="text" class="form-control" value="<?= $this->e($category['text']) ?>" readonly>
+                    <input type="text" class="form-control"
+                           value="<?= $this->e($category['text']) ?>" readonly>
                 </div>
                 <div class="text-end">
                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
