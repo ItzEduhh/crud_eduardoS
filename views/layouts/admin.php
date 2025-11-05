@@ -196,6 +196,10 @@ $auth = AuthService::user();
                 <i class="bi bi-box-seam"></i>
                 <span>Autores</span>
             </a>
+            <a class="nav-link" href="/admin/musics" data-page="autors">
+                <i class="bi bi-box-seam"></i>
+                <span>Músicas</span>
+            </a>
         </nav>
     </aside>
 

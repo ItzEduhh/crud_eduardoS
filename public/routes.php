@@ -2,6 +2,7 @@
 
 use App\Controllers\Admin\AdminController;
 use App\Controllers\Admin\AutorController;
+use App\Controllers\Admin\MusicController;
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductController;
 use App\Controllers\Admin\UserController;
@@ -39,6 +40,17 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $rou
             $autors->addRoute('GET', '/edit', [AutorController::class, 'edit']);
             $autors->addRoute('POST', '/update', [AutorController::class, 'update']);
             $autors->addRoute('POST', '/delete', [AutorController::class, 'delete']);
+        });
+
+        // Músicas
+        $group->addGroup('/musics', function (FastRoute\RouteCollector $musics) {
+            $musics->addRoute('GET', '', [MusicController::class, 'index']);
+            $musics->addRoute('GET', '/create', [MusicController::class, 'create']);
+            $musics->addRoute('POST', '/store', [MusicController::class, 'store']);
+            $musics->addRoute('GET', '/show', [MusicController::class, 'show']);
+            $musics->addRoute('GET', '/edit', [MusicController::class, 'edit']);
+            $musics->addRoute('POST', '/update', [MusicController::class, 'update']);
+            $musics->addRoute('POST', '/delete', [MusicController::class, 'delete']);
         });
 
         // Produtos
