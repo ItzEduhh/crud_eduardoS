@@ -3,6 +3,7 @@
 use App\Controllers\Admin\AdminController;
 use App\Controllers\Admin\AutorController;
 use App\Controllers\Admin\MusicController;
+use App\Controllers\Admin\ProducerController;
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductController;
 use App\Controllers\Admin\UserController;
@@ -51,6 +52,17 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $rou
             $musics->addRoute('GET', '/edit', [MusicController::class, 'edit']);
             $musics->addRoute('POST', '/update', [MusicController::class, 'update']);
             $musics->addRoute('POST', '/delete', [MusicController::class, 'delete']);
+        });
+
+        // Produtoras
+        $group->addGroup('/producers', function (FastRoute\RouteCollector $producers) {
+            $producers->addRoute('GET', '', [ProducerController::class, 'index']);
+            $producers->addRoute('GET', '/create', [ProducerController::class, 'create']);
+            $producers->addRoute('POST', '/store', [ProducerController::class, 'store']);
+            $producers->addRoute('GET', '/show', [ProducerController::class, 'show']);
+            $producers->addRoute('GET', '/edit', [ProducerController::class, 'edit']);
+            $producers->addRoute('POST', '/update', [ProducerController::class, 'update']);
+            $producers->addRoute('POST', '/delete', [ProducerController::class, 'delete']);
         });
 
         // Produtos
