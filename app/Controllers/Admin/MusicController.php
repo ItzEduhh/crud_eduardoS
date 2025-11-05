@@ -17,7 +17,7 @@ class MusicController
     private View $view;
     private MusicRepository $repo;
     private MusicService $service;
-
+    private AutorRepository $categoryRepo;
     private MusicRepository $musicRepo;
 
     public function __construct()
