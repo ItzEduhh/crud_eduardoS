@@ -55,6 +55,6 @@ class AutorRepository
     {
         $stmt = Database::getConnection()->prepare("SELECT * FROM autors ORDER BY id DESC");
         $stmt->execute();
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

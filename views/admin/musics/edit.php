@@ -22,6 +22,25 @@
                         <div class="text-danger"><?= $this->e($errors['text']) ?></div><?php endif; ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="autor_id" class="form-label">Autor</label>
+                    <select class="form-select" id="autor_id" name="autor_id"  required>
+                        <option value="">Selecione um Autor</option>
+                        <?php foreach ($autors as $autor): ?>
+                        <option value="<?= $autor['id'] ?>" <?= $this->e(($old['autor_id'] ?? '') == $autor['id'] ? 'selected' : '') ?>>
+                                <?= $this->e($autor['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php if (!empty($errors['autor_id'])): ?>
+                        <div class="error"><?= $this->e($errors['autor_id']) ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class="col-md-6 mb-3">
+
+                </div>
+            </div>
             <div class="d-flex gap-3">
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check-lg"></i> Atualizar

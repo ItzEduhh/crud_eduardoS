@@ -10,6 +10,7 @@ final class CreateMusicsTable extends AbstractMigration
         $this->table('musics')
             ->addColumn('name', 'string', ['limit' => 50])
             ->addColumn('text', 'string', ['limit' => 200])
-            ->create();
+            ->addColumn('autor_id', 'integer', ['signed' => false])
+            ->addForeignKey('autor_id', 'autors', 'id', ['delete' => 'NO ACTION', 'update' => 'NO ACTION'])            ->create();
     }
 }
