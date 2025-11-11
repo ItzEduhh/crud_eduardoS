@@ -10,6 +10,7 @@ class ProductService {
         $name = trim($data['name'] ?? '');
         $price = $data['price'] ?? '';
         $category_id = $data['category_id'] ?? '';
+        $autor_id = $data['autor_id'] ?? '';
 
         if ($name === '') $errors['name'] = 'Nome é obrigatório';
         if (!is_numeric($price) || (float)$price <= 0) $errors['price'] = 'Preço deve ser numérico e maior que zero';
@@ -42,7 +43,8 @@ class ProductService {
         $name = trim($data['name'] ?? '');
         $price = (float)($data['price'] ?? 0);
         $category_id = (int)($data['category_id'] ?? 0);
+        $autor_id = (int)($data['autor_id'] ?? 0);
         $id = isset($data['id']) ? (int)$data['id'] : null;
-        return new Product($id, $name, $price, $category_id, $imagePath);
+        return new Product($id, $name, $price, $category_id, $autor_id, $imagePath);
     }
 }

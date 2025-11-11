@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 use App\Core\Csrf;
 use App\Core\View;
 use App\Repositories\CategoryRepository;
+use App\Repositories\AutorRepository;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,12 +16,14 @@ class ProductController {
     private ProductRepository $repo;
     private ProductService $service;
     private CategoryRepository $categoryRepo;
+    private AutorRepository $autorRepo;
 
     public function __construct() {
         $this->view = new View();
         $this->repo = new ProductRepository();
         $this->service = new ProductService();
         $this->categoryRepo = new CategoryRepository();
+        $this->autorRepo = new AutorRepository();
     }
 
     public function index(Request $request): Response {
@@ -30,13 +33,15 @@ class ProductController {
         $products = $this->repo->paginate($page, $perPage);
         $pages = (int)ceil($total / $perPage);
         $categories = $this->categoryRepo->findAll();
+        $autors = $this->autorRepo->findAll();
         $html = $this->view->render('admin/products/index', compact('products','page','pages', 'categories'));
         return new Response($html);
     }
 
     public function create(): Response {
         $categories = $this->categoryRepo->findAll();
-        $html = $this->view->render('admin/products/create', ['csrf' => Csrf::token(), 'errors' => [], 'categories' => $categories]);
+        $autors = $this->autorRepo->findAll();
+        $html = $this->view->render('admin/products/create', ['csrf' => Csrf::token(), 'errors' => [], 'categories' => $categories, 'autors' => $autors]);
         return new Response($html);
     }
 
@@ -46,6 +51,7 @@ class ProductController {
         $errors = $this->service->validate($request->request->all(), $file);
         if ($errors) {
             $categories = $this->categoryRepo->findAll();
+            $categories = $this->autorRepo->findAll();
             $html = $this->view->render('admin/products/create', ['csrf' => Csrf::token(), 'errors' => $errors, 'old' => $request->request->all(), 'categories' => $categories]);
             return new Response($html, 422);
         }
@@ -67,6 +73,7 @@ class ProductController {
         $id = (int)$request->query->get('id', 0);
         $product = $this->repo->find($id);
         $categories = $this->categoryRepo->findAll();
+        $categories = $this->autorRepo->findAll();
         if (!$product) return new Response('Produto não encontrado', 404);
         $html = $this->view->render('admin/products/edit', ['product' => $product, 'csrf' => Csrf::token(), 'errors' => [], 'categories' => $categories]);
         return new Response($html);
@@ -79,6 +86,7 @@ class ProductController {
         $errors = $this->service->validate($data, $file);
         if ($errors) {
             $categories = $this->categoryRepo->findAll();
+            $categories = $this->autorRepo->findAll();
             $html = $this->view->render('admin/products/edit', ['product' => array_merge($this->repo->find((int)$data['id']), $data), 'csrf' => Csrf::token(), 'errors' => $errors, 'categories' => $categories]);
             return new Response($html, 422);
         }

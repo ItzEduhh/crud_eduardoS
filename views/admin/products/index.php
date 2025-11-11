@@ -17,6 +17,7 @@
                     <th>Imagem</th>
                     <th>Nome</th>
                     <th>Categoria</th>
+                    <th>Autor</th>
                     <th>Preço</th>
                     <th>Criado em</th>
                     <th>Ações</th>
@@ -36,6 +37,7 @@
                         </td>
                         <td><?= $this->e($product['name']) ?></td>
                         <td><?= $this->e($product['category_id']) ?></td>
+                        <td><?= $this->e($product['autor_id']) ?></td>
                         <td>R$ <?= number_format((float)$product['price'], 2, ',', '.') ?></td>
                         <td><?= $this->e($product['created_at'] ?? '') ?></td>
                         <td>
