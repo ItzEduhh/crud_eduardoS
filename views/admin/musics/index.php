@@ -16,6 +16,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Autor</th>
+                    <th>Produtora</th>
                     <th>Texto</th>
                     <th>Ações</th>
                 </tr>
@@ -26,6 +27,7 @@
                         <td><?= $this->e($music['id']) ?></td>
                         <td><?= $this->e($music['name']) ?></td>
                         <td><?= $this->e($music['autor_id']) ?></td>
+                        <td><?= $this->e($music['producer_id']) ?></td>
                         <td><?= $this->e($music['text']) ?></td>
                         <td>
                             <div class="action-buttons">

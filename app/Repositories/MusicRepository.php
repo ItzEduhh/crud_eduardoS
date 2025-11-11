@@ -35,16 +35,16 @@ class MusicRepository
     public function create(Music $music): int
     {
         $stmt = Database::getConnection()->prepare(
-            "INSERT INTO musics (autor_id, name, text) VALUES (?, ?, ?)"
+            "INSERT INTO musics (autor_id, producer_id, name, text) VALUES (?, ?, ?, ?)"
         );
-        $stmt->execute([$music->autor_id, $music->name, $music->text]);
+        $stmt->execute([$music->autor_id, $music->producer_id, $music->name, $music->text]);
         return (int)Database::getConnection()->lastInsertId();
     }
 
     public function update(Music $music): bool
     {
-        $stmt = Database::getConnection()->prepare("UPDATE musics SET autor_id = ?, name = ?, text = ? WHERE id = ?");
-        return $stmt->execute([$p->autor_id, $music->name, $music->text, $music->id]);
+        $stmt = Database::getConnection()->prepare("UPDATE musics SET autor_id = ?, producer_id = ?, name = ?, text = ? WHERE id = ?");
+        return $stmt->execute([$p->autor_id, $p->producer_id, $music->name, $music->text, $music->id]);
     }
 
     public function delete(int $id): bool
@@ -55,6 +55,13 @@ class MusicRepository
 
     public function findByAutorId(int $id): ?array {
         $stmt = Database::getConnection()->prepare("SELECT * FROM products WHERE autor_id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
+        return $row ?: [];
+    }
+
+    public function findByProducerId(int $id): ?array {
+        $stmt = Database::getConnection()->prepare("SELECT * FROM products WHERE producer_id = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch();
         return $row ?: [];

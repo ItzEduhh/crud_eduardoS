@@ -11,6 +11,9 @@ final class CreateMusicsTable extends AbstractMigration
             ->addColumn('name', 'string', ['limit' => 50])
             ->addColumn('text', 'string', ['limit' => 200])
             ->addColumn('autor_id', 'integer', ['signed' => false])
-            ->addForeignKey('autor_id', 'autors', 'id', ['delete' => 'NO ACTION', 'update' => 'NO ACTION'])            ->create();
+            ->addColumn('producer_id', 'integer', ['signed' => false])
+            ->addForeignKey('autor_id', 'autors', 'id', ['delete' => 'NO ACTION', 'update' => 'NO ACTION'])            
+            ->addForeignKey('producer_id', 'producers', 'id', ['delete' => 'NO ACTION', 'update' => 'NO ACTION'])
+            ->create();
     }
 }

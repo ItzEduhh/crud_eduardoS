@@ -7,6 +7,7 @@ use App\Core\Flash;
 use App\Core\View;
 use App\Repositories\MusicRepository;
 use App\Repositories\AutorRepository;
+use App\Repositories\ProducerRepository;
 use App\Repositories\ProductRepository;
 use App\Services\MusicService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,6 +21,7 @@ class MusicController
     private MusicService $service;
     private MusicRepository $musicRepo;
     private AutorRepository $autorRepo;
+    private ProducerRepository $producerRepo;
 
     public function __construct()
     {
@@ -28,6 +30,7 @@ class MusicController
         $this->service = new MusicService();
         $this->musicRepo = new MusicRepository();
         $this->autorRepo = new AutorRepository();
+        $this->producerRepo = new ProducerRepository();
     }
 
     public function index(Request $request): Response
@@ -38,6 +41,7 @@ class MusicController
         $musics = $this->repo->paginate($page, $perPage);
         $pages = (int)ceil($total / $perPage);
         $autors = $this->autorRepo->findAll();
+        $producers = $this->producerRepo->findAll();
         $html = $this->view->render('admin/musics/index', compact('musics', 'page', 'pages'));
         return new Response($html);
     }
@@ -45,11 +49,14 @@ class MusicController
     public function create(): Response
     {
         $autors = $this->autorRepo->findAll();
+        $producers = $this->producerRepo->findAll();
         $data = [
             'csrf' => Csrf::token(),
             'errors' => [],
-            'autors' => $autors
+            'autors' => $autors,
+            'producers' => $producers
         ];
+
 
         $html = $this->view->render('admin/musics/create', $data);
         return new Response($html);
@@ -61,6 +68,7 @@ class MusicController
         $errors = $this->service->validate($request->request->all());
         if ($errors) {
             $autors = $this->autorRepo->findAll();
+            $producers = $this->producerRepo->findAll();
             $html = $this->view->render('admin/musics/create', ['csrf' => Csrf::token(), 'errors' => $errors, 'old' => $request->request->all()]);
             return new Response($html, 422);
         }
@@ -83,6 +91,7 @@ class MusicController
         $id = (int)$request->query->get('id', 0);
         $music = $this->repo->findById($id);
         $autors = $this->autorRepo->findAll();
+        $producers = $this->producerRepo->findAll();
         if (!$music) return new Response('Música não encontrada', 404);
         $html = $this->view->render('admin/musics/edit', ['music' => $music, 'csrf' => Csrf::token(), 'errors' => []]);
         return new Response($html);
@@ -96,6 +105,7 @@ class MusicController
         $errors = $this->service->validate($data);
         if ($errors) {
             $autors = $this->autorRepo->findAll();
+            $producers = $this->producerRepo->findAll();
             $html = $this->view->render('admin/musics/edit', ['music' => array_merge($this->repo->find((int)$data['id']), $data), 'csrf' => Csrf::token(), 'errors' => $errors]);
             return new Response($html, 422);
         }
@@ -119,5 +129,10 @@ class MusicController
         $id = (int)$request->request->get('id', 0);
         if ($id > 0) $this->repo->delete($id);
         return new RedirectResponse('/admin/autors');
+
+        if (!Csrf::validate($request->request->get('_csrf'))) return new Response('Token CSRF inválido', 419);
+        $id = (int)$request->request->get('id', 0);
+        if ($id > 0) $this->repo->delete($id);
+        return new RedirectResponse('/admin/producers');
     }
 }
