@@ -41,9 +41,11 @@
                     <select class="form-select" id="category_id" name="category_id"  required>
                         <option value="">Selecione uma categoria</option>
                         <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id'] ?>" <?= $this->e(($old['category_id'] ?? $product['category_id']) == $category['id'] ? 'selected' : '') ?>>
-                                <?= $this->e($category['name']) ?>
+                            <option value="<?= $category->id ?>" 
+                                <?= (($old['category_id'] ?? $product->category_id ?? null) == $category->id) ? 'selected' : '' ?>>
+                                <?= $this->e($category->name) ?>
                             </option>
+
                         <?php endforeach; ?>
                     </select>
                     <?php if (!empty($errors['category_id'])): ?>
