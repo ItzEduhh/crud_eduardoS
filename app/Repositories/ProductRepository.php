@@ -11,12 +11,26 @@ class ProductRepository {
         return (int)$stmt->fetchColumn();
     }
     public function paginate(int $page, int $perPage): array {
-        $offset = ($page - 1) * $perPage;
-        $stmt = Database::getConnection()->prepare("SELECT * FROM products ORDER BY id DESC LIMIT :limit OFFSET :offset");
-        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
+    $offset = ($page - 1) * $perPage;
+
+    $sql = "
+        SELECT 
+        p.*, 
+        c.name AS category_name, 
+        a.name AS autor_name
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        LEFT JOIN autors a ON p.autor_id = a.id
+        ORDER BY p.id DESC
+        LIMIT :limit OFFSET :offset
+    ";
+
+    $stmt = Database::getConnection()->prepare($sql);
+    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function find(int $id): ?array {
         $stmt = Database::getConnection()->prepare("SELECT * FROM products WHERE id = ?");
