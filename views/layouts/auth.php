@@ -21,7 +21,7 @@
         /* Login Screen */
         .login-wrapper {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #9466eaff 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -35,7 +35,7 @@
         .login-logo {
             width: 64px;
             height: 64px;
-            background-color: #667eea;
+            background-color: #8e66eaff;
             border-radius: 12px;
             display: flex;
             align-items: center;

@@ -33,7 +33,7 @@ $auth = AuthService::user();
             left: 0;
             right: 0;
             height: var(--header-height);
-            background-color: #2c3e50;
+            background-color: #3d2c50ff;
             color: white;
             z-index: 1030;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -48,7 +48,7 @@ $auth = AuthService::user();
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background-color: #3498db;
+            background-color: #db7134ff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -62,7 +62,7 @@ $auth = AuthService::user();
             left: 0;
             bottom: 0;
             width: var(--sidebar-width);
-            background-color: #34495e;
+            background-color: #3d345eff;
             overflow-y: auto;
             transition: transform 0.3s ease;
             z-index: 1020;
@@ -87,7 +87,7 @@ $auth = AuthService::user();
         }
 
         .sidebar .nav-link.active {
-            background-color: #3498db;
+            background-color: #6634dbff;
             color: white;
         }
 
