@@ -39,9 +39,11 @@ class ProductRepository {
         return $row ?: null;
     }
     public function create(Product $p): int {
-        $stmt = Database::getConnection()->prepare("INSERT INTO products (autor_id, category_id, name, price, image_path) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$p->category_id, $p->autor_id, $p->name, $p->price, $p->image_path]);
-        return (int)Database::getConnection()->lastInsertId();
+    $stmt = Database::getConnection()->prepare(
+        "INSERT INTO products (autor_id, category_id, name, price, image_path) VALUES (?, ?, ?, ?, ?)"
+    );
+    $stmt->execute([$p->autor_id, $p->category_id, $p->name, $p->price, $p->image_path]);
+    return (int)Database::getConnection()->lastInsertId();
     }
     public function update(Product $p): bool {
         $stmt = Database::getConnection()->prepare("UPDATE products SET autor_id = ?, category_id = ?, name = ?, price = ?, image_path = ? WHERE id = ?");

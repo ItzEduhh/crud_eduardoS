@@ -15,14 +15,29 @@ class MusicRepository
     }
 
     public function paginate(int $page, int $perPage): array
-    {
-        $offset = ($page - 1) * $perPage;
-        $stmt = Database::getConnection()->prepare("SELECT * FROM musics ORDER BY id DESC LIMIT :limit OFFSET :offset");
-        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+{
+    $offset = ($page - 1) * $perPage;
+
+    $sql = "
+        SELECT 
+            m.*, 
+            a.name AS autor_name, 
+            p.name AS producer_name
+        FROM musics m
+        LEFT JOIN autors a ON m.autor_id = a.id
+        LEFT JOIN producers p ON m.producer_id = p.id
+        ORDER BY m.id DESC
+        LIMIT :limit OFFSET :offset
+    ";
+
+    $stmt = Database::getConnection()->prepare($sql);
+    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
     public function findById(int $id): ?array
     {
