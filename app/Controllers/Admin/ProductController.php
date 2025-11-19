@@ -51,9 +51,16 @@ class ProductController {
         $errors = $this->service->validate($request->request->all(), $file);
         if ($errors) {
             $categories = $this->categoryRepo->findAll();
-            $categories = $this->autorRepo->findAll();
-            $html = $this->view->render('admin/products/create', ['csrf' => Csrf::token(), 'errors' => $errors, 'old' => $request->request->all(), 'categories' => $categories]);
-            return new Response($html, 422);
+            $autors = $this->autorRepo->findAll();
+
+            $html = $this->view->render('admin/products/create', [
+                'csrf' => Csrf::token(),
+                'errors' => $errors,
+                'old' => $request->request->all(),
+                'categories' => $categories,
+                'autors' => $autors
+            ]);
+
         }
         $imagePath = $this->service->storeImage($file);
         $product = $this->service->make($request->request->all(), $imagePath);
@@ -73,9 +80,15 @@ class ProductController {
         $id = (int)$request->query->get('id', 0);
         $product = $this->repo->find($id);
         $categories = $this->categoryRepo->findAll();
-        $categories = $this->autorRepo->findAll();
+        $autors = $this->autorRepo->findAll();
         if (!$product) return new Response('Produto não encontrado', 404);
-        $html = $this->view->render('admin/products/edit', ['product' => $product, 'csrf' => Csrf::token(), 'errors' => [], 'categories' => $categories]);
+        $html = $this->view->render('admin/products/edit', [
+            'product' => $product,
+            'csrf'    => Csrf::token(),
+            'errors'  => [],
+            'categories' => $categories,
+            'autors' => $autors
+        ]);
         return new Response($html);
     }
 
@@ -86,9 +99,16 @@ class ProductController {
         $errors = $this->service->validate($data, $file);
         if ($errors) {
             $categories = $this->categoryRepo->findAll();
-            $categories = $this->autorRepo->findAll();
-            $html = $this->view->render('admin/products/edit', ['product' => array_merge($this->repo->find((int)$data['id']), $data), 'csrf' => Csrf::token(), 'errors' => $errors, 'categories' => $categories]);
-            return new Response($html, 422);
+            $autors = $this->autorRepo->findAll();
+
+            $html = $this->view->render('admin/products/edit', [
+                'product' => array_merge($this->repo->find((int)$data['id']), $data),
+                'csrf' => Csrf::token(),
+                'errors' => $errors,
+                'categories' => $categories,
+                'autors' => $autors
+            ]);
+
         }
         $imagePath = $this->service->storeImage($file) ?? ($this->repo->find((int)$data['id'])['image_path'] ?? null);
         $product = $this->service->make($data, $imagePath);
