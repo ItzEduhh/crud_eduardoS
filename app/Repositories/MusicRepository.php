@@ -41,11 +41,24 @@ class MusicRepository
 
     public function findById(int $id): ?array
     {
-        $stmt = Database::getConnection()->prepare("SELECT * FROM musics WHERE id = ?");
+        $sql = "
+            SELECT 
+                m.*,
+                a.name AS autor_name,
+                p.name AS producer_name
+            FROM musics m
+            LEFT JOIN autors a ON a.id = m.autor_id
+            LEFT JOIN producers p ON p.id = m.producer_id
+            WHERE m.id = ?
+        ";
+
+        $stmt = Database::getConnection()->prepare($sql);
         $stmt->execute([$id]);
-        $row = $stmt->fetch();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $row ?: null;
     }
+
 
     public function create(Music $music): int
     {
@@ -59,7 +72,7 @@ class MusicRepository
     public function update(Music $music): bool
     {
         $stmt = Database::getConnection()->prepare("UPDATE musics SET autor_id = ?, producer_id = ?, name = ?, text = ? WHERE id = ?");
-        return $stmt->execute([$p->autor_id, $p->producer_id, $music->name, $music->text, $music->id]);
+        return $stmt->execute([$music->autor_id, $music->producer_id, $music->name, $music->text, $music->id]);
     }
 
     public function delete(int $id): bool

@@ -32,12 +32,26 @@ class ProductRepository {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function find(int $id): ?array {
-        $stmt = Database::getConnection()->prepare("SELECT * FROM products WHERE id = ?");
+    public function find(int $id): ?array
+    {
+        $sql = "
+            SELECT 
+                p.*,
+                c.name AS category_name,
+                a.name AS autor_name
+            FROM products p
+            LEFT JOIN categories c ON c.id = p.category_id
+            LEFT JOIN autors a ON a.id = p.autor_id
+            WHERE p.id = ?
+        ";
+
+        $stmt = Database::getConnection()->prepare($sql);
         $stmt->execute([$id]);
-        $row = $stmt->fetch();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
         return $row ?: null;
     }
+
     public function create(Product $p): int {
     $stmt = Database::getConnection()->prepare(
         "INSERT INTO products (autor_id, category_id, name, price, image_path) VALUES (?, ?, ?, ?, ?)"

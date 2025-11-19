@@ -33,6 +33,18 @@
                     <input type="text" class="form-control" value="<?= $this->e($product['created_at'] ?? '') ?>"
                            readonly>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Categoria:</strong></label>
+                    <input type="text" class="form-control"
+                        value="<?= $this->e($product['category_name'] ?? '—') ?>" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Autor:</strong></label>
+                    <input type="text" class="form-control"
+                        value="<?= $this->e($product['autor_name'] ?? '—') ?>" readonly>
+                </div>
+
                 <div class="text-end">
                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                 </div>
