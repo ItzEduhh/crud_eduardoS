@@ -90,12 +90,29 @@ class MusicController
     {
         $id = (int)$request->query->get('id', 0);
         $music = $this->repo->findById($id);
+        if (!$music) return new Response('Música não encontrada', 404);
+
         $autors = $this->autorRepo->findAll();
         $producers = $this->producerRepo->findAll();
-        if (!$music) return new Response('Música não encontrada', 404);
-        $html = $this->view->render('admin/musics/edit', ['music' => $music, 'csrf' => Csrf::token(), 'errors' => []]);
+
+        // Garantir que tudo é objeto para a view
+        $music = is_array($music) ? (object)$music : $music;
+        $autors = array_map(fn($a) => is_array($a) ? (object)$a : $a, $autors);
+        $producers = array_map(fn($p) => is_array($p) ? (object)$p : $p, $producers);
+
+        $html = $this->view->render('admin/musics/edit', [
+            'music' => $music,
+            'csrf' => Csrf::token(),
+            'errors' => [],
+            'autors' => $autors,
+            'producers' => $producers
+        ]);
+
         return new Response($html);
     }
+
+
+
 
     public function update(Request $request): Response
     {
@@ -117,7 +134,6 @@ class MusicController
 
     public function delete(Request $request): Response
     {
-        // Pegar produto com music
         $musics = $this->musicRepo->findById((int)$request->request->get('id', 0));
         if ($music) {
             Flash::push("danger", "Música não pode ser excluída");
