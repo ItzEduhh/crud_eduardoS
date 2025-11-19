@@ -38,23 +38,20 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="category_id" class="form-label">Categoria</label>
-                    <select class="form-select" id="category_id" name="category_id"  required>
+                    <select class="form-select" id="category_id" name="category_id" required>
                         <option value="">Selecione uma categoria</option>
                         <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category->id ?>" 
-                                <?= (($old['category_id'] ?? $product->category_id ?? null) == $category->id) ? 'selected' : '' ?>>
-                                <?= $this->e($category->name) ?>
+                            <option value="<?= $category['id'] ?>" 
+                                <?= (($old['category_id'] ?? $product['category_id'] ?? null) == $category['id'] ? 'selected' : '') ?>>
+                                <?= $this->e($category['name']) ?>
                             </option>
-
                         <?php endforeach; ?>
                     </select>
                     <?php if (!empty($errors['category_id'])): ?>
                         <div class="error"><?= $this->e($errors['category_id']) ?></div>
                     <?php endif; ?>
                 </div>
-                <div class="col-md-6 mb-3">
 
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -63,7 +60,7 @@
                         <option value="">Selecione um Autor</option>
                         <?php foreach ($autors as $autor): ?>
                             <option value="<?= $autor->id ?>"
-                                <?= (($old['autor_id'] ?? $product->autor_id) == $autor->id ? 'selected' : '') ?>>
+                                <?= (($old['autor_id'] ?? $product['autor_id']) == $autor->id ? 'selected' : '') ?>>
                                 <?= $this->e($autor->name) ?>
                             </option>
                         <?php endforeach; ?>
